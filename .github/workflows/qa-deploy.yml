@@ -29,7 +29,7 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
-      # STEP 4: Locate ZIP
+      # STEP 4: Locate Artifact (FIXED)
       - name: Locate Artifact
         run: |
           echo "Searching for ZIP file..."
@@ -43,23 +43,17 @@ jobs:
           echo "Found: $FILE_PATH"
           echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      # STEP 5: Get OAuth Token (FINAL FIX)
+      # STEP 5: GET TOKEN (FINAL FIX)
       - name: Get CPI OAuth Token
         id: token
         run: |
-          echo "Preparing credentials safely..."
+          echo "Requesting OAuth token..."
 
-          CLIENT_ID="${{ secrets.CPI_CLIENT_ID }}"
-          CLIENT_SECRET="${{ secrets.CPI_CLIENT_SECRET }}"
-
-          BASIC_AUTH=$(printf "%s:%s" "$CLIENT_ID" "$CLIENT_SECRET" | base64)
-
-          echo "Requesting token..."
-
-          RESPONSE=$(curl -s --fail -X POST "${{ secrets.CPI_TOKEN_URL }}" \
-            -H "Authorization: Basic $BASIC_AUTH" \
+          RESPONSE=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
             -H "Content-Type: application/x-www-form-urlencoded" \
-            --data-urlencode "grant_type=client_credentials")
+            -d "grant_type=client_credentials" \
+            -d "client_id=${{ secrets.CPI_CLIENT_ID }}" \
+            -d "client_secret=${{ secrets.CPI_CLIENT_SECRET }}")
 
           echo "Token Response:"
           echo "$RESPONSE"
@@ -76,9 +70,9 @@ jobs:
       # STEP 6: Deploy iFlow
       - name: Deploy iFlow to CPI
         run: |
-          echo "Uploading iFlow to CPI..."
+          echo "Uploading iFlow..."
 
-          curl -s --fail -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
+          curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
             -H "Content-Type: application/zip" \
             --data-binary @"$FILE_PATH"
@@ -88,7 +82,7 @@ jobs:
         run: |
           echo "Activating iFlow..."
 
-          curl -s --fail -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
+          curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}"
 
       # STEP 8: Summary
