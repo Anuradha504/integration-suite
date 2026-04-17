@@ -15,52 +15,74 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ---------------- STEP 1: Checkout ----------------
+      # STEP 1: Checkout
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # ---------------- STEP 2: Install jq ----------------
+      # STEP 2: Install jq
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      # ---------------- STEP 3: Show Inputs ----------------
+      # STEP 3: Show Inputs
       - name: Show Inputs
         run: |
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
-      # ---------------- STEP 4: Get OAuth Token ----------------
+      # STEP 4: Locate Artifact
+      - name: Locate Artifact
+        run: |
+          FILE_PATH="integration-suite/packages/${{ github.event.inputs.packageId }}/${{ github.event.inputs.artifactId }}/artifact_1.0.0.zip"
+
+          if [ ! -f "$FILE_PATH" ]; then
+            echo "ERROR: Artifact not found!"
+            exit 1
+          fi
+
+          echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
+
+      # STEP 5: Get OAuth Token (FIXED)
       - name: Get CPI OAuth Token
         id: token
         run: |
           echo "Requesting CPI OAuth token..."
 
-          response=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
-          -H "Content-Type: application/x-www-form-urlencoded" \
-          -d "grant_type=client_credentials&client_id=${{ secrets.CPI_CLIENT_ID }}&client_secret=${{ secrets.CPI_CLIENT_SECRET }}")
+          RESPONSE=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
+            --user "${{ secrets.CPI_CLIENT_ID }}:${{ secrets.CPI_CLIENT_SECRET }}" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=client_credentials")
 
           echo "Token Response:"
-          echo "$response"
+          echo "$RESPONSE"
 
-          token=$(echo "$response" | jq -r '.access_token')
+          ACCESS_TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
 
-          if [ "$token" == "null" ]; then
+          if [ "$ACCESS_TOKEN" = "null" ] || [ -z "$ACCESS_TOKEN" ]; then
             echo "ERROR: Failed to generate token"
             exit 1
           fi
 
-          echo "token=$token" >> $GITHUB_OUTPUT
+          echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
 
-      # ---------------- STEP 5: Deploy iFlow ----------------
+      # STEP 6: Deploy iFlow (UPLOAD ZIP)
       - name: Deploy iFlow to CPI
         run: |
-          echo "Deploying iFlow..."
+          echo "Uploading iFlow ZIP to CPI..."
 
-          curl -X POST "${{ secrets.CPI_HOST }}/itspaces/odata/api/v1/IntegrationDesigntimeArtifacts(Id='${{ github.event.inputs.artifactId }}',Version='active')/Deploy" \
-          -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
-          -H "Content-Type: application/json"
+          curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
+            -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary @"$FILE_PATH"
 
-      # ---------------- STEP 6: Deployment Summary ----------------
+      # STEP 7: Activate iFlow
+      - name: Activate iFlow
+        run: |
+          echo "Activating iFlow..."
+
+          curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
+            -H "Authorization: Bearer ${{ steps.token.outputs.token }}"
+
+      # STEP 8: Summary
       - name: Deployment Summary
         run: |
           echo "======================================"
