@@ -1,0 +1,36 @@
+name: QA Deploy Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      packageId:
+        description: 'Package ID from CPI'
+        required: true
+      artifactId:
+        description: 'Artifact ID from CPI'
+        required: true
+
+jobs:
+  deploy-to-qa:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Show Inputs
+        run: |
+          echo "Package ID: ${{ github.event.inputs.packageId }}"
+          echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
+
+      - name: Locate Artifact
+        run: |
+          echo "Searching artifact in Git repository..."
+
+      - name: Decode & Prepare ZIP
+        run: |
+          echo "Base64 decode step will go here"
+
+      - name: Deploy to CPI QA
+        run: |
+          echo "CPI QA deployment API call will go here"
