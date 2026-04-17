@@ -1,41 +1,70 @@
-name: QA Deploy Pipeline
+name: CPI Enterprise QA Deployment
 
 on:
   workflow_dispatch:
     inputs:
       packageId:
-        description: 'Package ID from CPI'
+        description: 'CPI Package ID'
         required: true
       artifactId:
-        description: 'Artifact ID from CPI'
+        description: 'CPI Artifact ID (iFlow)'
         required: true
 
 jobs:
-  deploy-to-qa:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # ---------------- STEP 1: Checkout ----------------
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # ---------------- STEP 2: Install jq ----------------
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      # ---------------- STEP 3: Show Inputs ----------------
       - name: Show Inputs
         run: |
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
-      - name: Locate Artifact
+      # ---------------- STEP 4: Get OAuth Token ----------------
+      - name: Get CPI OAuth Token
+        id: token
         run: |
-          echo "Searching artifact in Git repository..."
+          echo "Requesting CPI OAuth token..."
 
-      - name: Decode & Prepare ZIP
-        run: |
-          echo "Base64 decode step will go here"
+          response=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          -d "grant_type=client_credentials&client_id=${{ secrets.CPI_CLIENT_ID }}&client_secret=${{ secrets.CPI_CLIENT_SECRET }}")
 
-      - name: Deploy to CPI QA (SIMULATION NOW)
+          echo "Token Response:"
+          echo "$response"
+
+          token=$(echo "$response" | jq -r '.access_token')
+
+          if [ "$token" == "null" ]; then
+            echo "ERROR: Failed to generate token"
+            exit 1
+          fi
+
+          echo "token=$token" >> $GITHUB_OUTPUT
+
+      # ---------------- STEP 5: Deploy iFlow ----------------
+      - name: Deploy iFlow to CPI
         run: |
-          echo "Starting CPI QA deployment..."
+          echo "Deploying iFlow..."
+
+          curl -X POST "${{ secrets.CPI_HOST }}/itspaces/odata/api/v1/IntegrationDesigntimeArtifacts(Id='${{ github.event.inputs.artifactId }}',Version='active')/Deploy" \
+          -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
+          -H "Content-Type: application/json"
+
+      # ---------------- STEP 6: Deployment Summary ----------------
+      - name: Deployment Summary
+        run: |
+          echo "======================================"
+          echo "CPI DEPLOYMENT COMPLETED SUCCESSFULLY"
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
-          echo "Simulating CPI API call"
-          echo "Step 1 complete"
-          echo "Step 2 complete"
+          echo "======================================"
