@@ -31,9 +31,12 @@ jobs:
               run: |
           echo "Base64 decode step will go here"
 
-      - name: Deploy to CPI QA (SIMULATION NOW)
-        run: |
+            - name: Deploy to CPI QA (SIMULATION NOW)
+              run: |
           echo "Starting CPI QA deployment..."
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
-          echo "Calling CPI API placeholder only"
+
+          echo "Simulating CPI API call"
+          echo "Step 1 complete"
+          echo "Step 2 complete"
