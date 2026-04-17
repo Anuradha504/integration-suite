@@ -29,15 +29,7 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
-      # STEP 4: Debug Repo (optional but helpful)
-      - name: Debug Repository Structure
-        run: |
-          echo "---- ROOT FILES ----"
-          ls
-          echo "---- FULL STRUCTURE ----"
-          ls -R
-
-      # STEP 5: Locate Artifact (AUTO DETECT - FIXED)
+      # STEP 4: Find ZIP (NO PATH ISSUE)
       - name: Locate Artifact
         run: |
           echo "Searching for ZIP file..."
@@ -45,21 +37,25 @@ jobs:
           FILE_PATH=$(find . -type f -name "*.zip" | head -n 1)
 
           if [ -z "$FILE_PATH" ]; then
-            echo "ERROR: No ZIP file found in repository!"
+            echo "ERROR: No ZIP file found!"
             exit 1
           fi
 
-          echo "Found ZIP at: $FILE_PATH"
+          echo "Found: $FILE_PATH"
           echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      # STEP 6: Get OAuth Token
+      # STEP 5: Get OAuth Token (FIXED)
       - name: Get CPI OAuth Token
         id: token
         run: |
-          echo "Requesting CPI OAuth token..."
+          echo "Generating Base64 credentials..."
+
+          BASIC_AUTH=$(echo -n "${{ secrets.CPI_CLIENT_ID }}:${{ secrets.CPI_CLIENT_SECRET }}" | base64)
+
+          echo "Requesting token..."
 
           RESPONSE=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
-            --user "${{ secrets.CPI_CLIENT_ID }}:${{ secrets.CPI_CLIENT_SECRET }}" \
+            -H "Authorization: Basic $BASIC_AUTH" \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -d "grant_type=client_credentials")
 
@@ -75,17 +71,17 @@ jobs:
 
           echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
 
-      # STEP 7: Deploy iFlow (UPLOAD ZIP)
+      # STEP 6: Deploy iFlow (UPLOAD ZIP)
       - name: Deploy iFlow to CPI
         run: |
-          echo "Uploading iFlow ZIP to CPI..."
+          echo "Uploading iFlow to CPI..."
 
           curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
             -H "Content-Type: application/zip" \
             --data-binary @"$FILE_PATH"
 
-      # STEP 8: Activate iFlow
+      # STEP 7: Activate iFlow
       - name: Activate iFlow
         run: |
           echo "Activating iFlow..."
@@ -93,11 +89,11 @@ jobs:
           curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}"
 
-      # STEP 9: Summary
+      # STEP 8: Summary
       - name: Deployment Summary
         run: |
           echo "======================================"
-          echo "CPI DEPLOYMENT COMPLETED SUCCESSFULLY"
-          echo "Package ID: ${{ github.event.inputs.packageId }}"
-          echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
+          echo "CPI DEPLOYMENT SUCCESSFUL"
+          echo "Package: ${{ github.event.inputs.packageId }}"
+          echo "Artifact: ${{ github.event.inputs.artifactId }}"
           echo "======================================"
