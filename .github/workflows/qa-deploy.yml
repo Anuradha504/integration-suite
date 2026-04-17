@@ -29,7 +29,7 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
-      # STEP 4: Locate Artifact (FIXED)
+      # STEP 4: Locate Artifact
       - name: Locate Artifact
         run: |
           echo "Searching for ZIP file..."
@@ -43,7 +43,7 @@ jobs:
           echo "Found: $FILE_PATH"
           echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      # STEP 5: GET TOKEN (FINAL FIX)
+      # STEP 5: Get CPI OAuth Token (FIXED)
       - name: Get CPI OAuth Token
         id: token
         run: |
@@ -51,9 +51,9 @@ jobs:
 
           RESPONSE=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
             -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "grant_type=client_credentials" \
-            -d "client_id=${{ secrets.CPI_CLIENT_ID }}" \
-            -d "client_secret=${{ secrets.CPI_CLIENT_SECRET }}")
+            --data-urlencode "grant_type=client_credentials" \
+            --data-urlencode "client_id=${{ secrets.CPI_CLIENT_ID }}" \
+            --data-urlencode "client_secret=${{ secrets.CPI_CLIENT_SECRET }}")
 
           echo "Token Response:"
           echo "$RESPONSE"
