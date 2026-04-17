@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # STEP 1: Checkout
+      # STEP 1: Checkout Code
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -29,7 +29,7 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
-      # STEP 4: Locate Artifact
+      # STEP 4: Locate ZIP (AUTO DETECT)
       - name: Locate Artifact
         run: |
           echo "Searching for ZIP file..."
@@ -43,17 +43,18 @@ jobs:
           echo "Found: $FILE_PATH"
           echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      # STEP 5: Get CPI OAuth Token (FIXED)
+      # STEP 5: Get OAuth Token (FINAL FIX)
       - name: Get CPI OAuth Token
         id: token
         run: |
           echo "Requesting OAuth token..."
 
+          AUTH=$(printf "%s:%s" "${{ secrets.CPI_CLIENT_ID }}" "${{ secrets.CPI_CLIENT_SECRET }}" | base64)
+
           RESPONSE=$(curl -s -X POST "${{ secrets.CPI_TOKEN_URL }}" \
+            -H "Authorization: Basic $AUTH" \
             -H "Content-Type: application/x-www-form-urlencoded" \
-            --data-urlencode "grant_type=client_credentials" \
-            --data-urlencode "client_id=${{ secrets.CPI_CLIENT_ID }}" \
-            --data-urlencode "client_secret=${{ secrets.CPI_CLIENT_SECRET }}")
+            -d "grant_type=client_credentials")
 
           echo "Token Response:"
           echo "$RESPONSE"
@@ -67,7 +68,7 @@ jobs:
 
           echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
 
-      # STEP 6: Deploy iFlow
+      # STEP 6: Deploy iFlow (UPLOAD ZIP)
       - name: Deploy iFlow to CPI
         run: |
           echo "Uploading iFlow..."
