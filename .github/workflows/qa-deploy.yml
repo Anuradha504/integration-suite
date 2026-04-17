@@ -29,24 +29,30 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
+      # STEP 4: Debug Repo (optional but helpful)
       - name: Debug Repository Structure
         run: |
-            echo "Listing all files:"
-            ls -R
+          echo "---- ROOT FILES ----"
+          ls
+          echo "---- FULL STRUCTURE ----"
+          ls -R
 
-      # STEP 4: Locate Artifact
+      # STEP 5: Locate Artifact (AUTO DETECT - FIXED)
       - name: Locate Artifact
         run: |
-          FILE_PATH="integration-suite/packages/${{ github.event.inputs.packageId }}/${{ github.event.inputs.artifactId }}/artifact_1.0.0.zip"
+          echo "Searching for ZIP file..."
 
-          if [ ! -f "$FILE_PATH" ]; then
-            echo "ERROR: Artifact not found!"
+          FILE_PATH=$(find . -type f -name "*.zip" | head -n 1)
+
+          if [ -z "$FILE_PATH" ]; then
+            echo "ERROR: No ZIP file found in repository!"
             exit 1
           fi
 
+          echo "Found ZIP at: $FILE_PATH"
           echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      # STEP 5: Get OAuth Token (FIXED)
+      # STEP 6: Get OAuth Token
       - name: Get CPI OAuth Token
         id: token
         run: |
@@ -69,7 +75,7 @@ jobs:
 
           echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
 
-      # STEP 6: Deploy iFlow (UPLOAD ZIP)
+      # STEP 7: Deploy iFlow (UPLOAD ZIP)
       - name: Deploy iFlow to CPI
         run: |
           echo "Uploading iFlow ZIP to CPI..."
@@ -79,7 +85,7 @@ jobs:
             -H "Content-Type: application/zip" \
             --data-binary @"$FILE_PATH"
 
-      # STEP 7: Activate iFlow
+      # STEP 8: Activate iFlow
       - name: Activate iFlow
         run: |
           echo "Activating iFlow..."
@@ -87,7 +93,7 @@ jobs:
           curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}"
 
-      # STEP 8: Summary
+      # STEP 9: Summary
       - name: Deployment Summary
         run: |
           echo "======================================"
