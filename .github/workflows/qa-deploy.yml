@@ -29,6 +29,11 @@ jobs:
           echo "Package ID: ${{ github.event.inputs.packageId }}"
           echo "Artifact ID: ${{ github.event.inputs.artifactId }}"
 
+      - name: Debug Repository Structure
+        run: |
+            echo "Listing all files:"
+            ls -R
+
       # STEP 4: Locate Artifact
       - name: Locate Artifact
         run: |
