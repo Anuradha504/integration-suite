@@ -32,7 +32,7 @@ jobs:
       # STEP 4: Locate Artifact
       - name: Locate Artifact
         run: |
-          FILE_PATH="integration-suite/packages/${{ github.event.inputs.packageId }}/${{ github.event.inputs.artifactId }}/artifact_1.0.0.zip"
+          FILE_PATH="integration-suite/packages/${{ github.event.inputs.packageId }}/${{ github.event.inputs.artifactId }}/artifact_1.0.1.zip"
 
           if [ ! -f "$FILE_PATH" ]; then
             echo "ERROR: Artifact not found!"
