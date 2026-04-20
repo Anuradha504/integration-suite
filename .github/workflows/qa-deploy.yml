@@ -4,8 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       packageId:
+        description: 'CPI Package ID'
         required: true
       artifactId:
+        description: 'CPI Artifact ID (iFlow)'
         required: true
 
 jobs:
@@ -13,45 +15,64 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # STEP 1: Checkout
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - run: sudo apt-get update && sudo apt-get install -y jq
+      # STEP 2: Install jq
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-      - run: |
-          FILE_PATH=$(find . -type f -name "*.zip" | head -n 1)
-          echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
-
-      - name: Get OAuth Token
-        id: token
+      # STEP 3: Find ZIP
+      - name: Locate Artifact
         run: |
-          CLIENT_ID=$(echo "${{ secrets.CPI_CLIENT_ID }}" | tr -d '\r\n')
-          CLIENT_SECRET=$(echo "${{ secrets.CPI_CLIENT_SECRET }}" | tr -d '\r\n')
-          TOKEN_URL=$(echo "${{ secrets.CPI_TOKEN_URL }}" | tr -d '\r\n')
+          FILE_PATH=$(find . -type f -name "*.zip" | head -n 1)
 
-          RESPONSE=$(curl --http1.1 -s -X POST "$TOKEN_URL" \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "grant_type=client_credentials" \
-            -d "client_id=$CLIENT_ID" \
-            -d "client_secret=$CLIENT_SECRET")
-
-          echo "$RESPONSE"
-
-          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
-
-          if [ "$TOKEN" = "null" ] || [ -z "$TOKEN" ]; then
+          if [ -z "$FILE_PATH" ]; then
+            echo "ERROR: ZIP not found"
             exit 1
           fi
 
-          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+          echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      - name: Deploy
+      # STEP 4: Get OAuth Token (FINAL FIX)
+      - name: Get CPI OAuth Token
+        id: token
+        run: |
+          echo "Generating OAuth token..."
+
+          CLIENT_ID=$(printf "%s" "${{ secrets.CPI_CLIENT_ID }}")
+          CLIENT_SECRET=$(printf "%s" "${{ secrets.CPI_CLIENT_SECRET }}")
+          TOKEN_URL=$(printf "%s" "${{ secrets.CPI_TOKEN_URL }}")
+
+          RESPONSE=$(curl --http1.1 -s -X POST "$TOKEN_URL" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            --data-urlencode "grant_type=client_credentials" \
+            --data-urlencode "client_id=$CLIENT_ID" \
+            --data-urlencode "client_secret=$CLIENT_SECRET")
+
+          echo "Response:"
+          echo "$RESPONSE"
+
+          ACCESS_TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
+
+          if [ "$ACCESS_TOKEN" = "null" ] || [ -z "$ACCESS_TOKEN" ]; then
+            echo "ERROR: OAuth failed"
+            exit 1
+          fi
+
+          echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
+
+      # STEP 5: Deploy iFlow
+      - name: Deploy iFlow
         run: |
           curl --http1.1 -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
             -H "Content-Type: application/zip" \
             --data-binary @"$FILE_PATH"
 
-      - name: Activate
+      # STEP 6: Activate iFlow
+      - name: Activate iFlow
         run: |
           curl --http1.1 -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}"
