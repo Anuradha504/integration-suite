@@ -43,13 +43,7 @@ jobs:
           echo "Found: $FILE_PATH"
           echo "FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
 
-      # STEP 5: Test Connectivity (VERY IMPORTANT)
-      - name: Test Token URL Connectivity
-        run: |
-          echo "Testing OAuth URL..."
-          curl -v "${{ secrets.CPI_TOKEN_URL }}" || true
-
-      # STEP 6: Get OAuth Token (FINAL FIX)
+      # STEP 5: Get OAuth Token (FINAL FIX - HTTP/1.1 + Basic Auth)
       - name: Get CPI OAuth Token
         id: token
         run: |
@@ -61,7 +55,7 @@ jobs:
 
           AUTH=$(printf "%s:%s" "$CLIENT_ID" "$CLIENT_SECRET" | base64)
 
-          RESPONSE=$(curl -v -X POST "$TOKEN_URL" \
+          RESPONSE=$(curl --http1.1 -s -X POST "$TOKEN_URL" \
             -H "Authorization: Basic $AUTH" \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -d "grant_type=client_credentials")
@@ -78,25 +72,25 @@ jobs:
 
           echo "token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
 
-      # STEP 7: Deploy iFlow to CPI QA
+      # STEP 6: Deploy iFlow to CPI QA
       - name: Deploy iFlow to CPI
         run: |
           echo "Uploading iFlow..."
 
-          curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
+          curl --http1.1 -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationDesigntimeArtifacts" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}" \
             -H "Content-Type: application/zip" \
             --data-binary @"$FILE_PATH"
 
-      # STEP 8: Activate iFlow
+      # STEP 7: Activate iFlow
       - name: Activate iFlow
         run: |
           echo "Activating iFlow..."
 
-          curl -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
+          curl --http1.1 -X POST "${{ secrets.CPI_HOST }}/api/v1/IntegrationRuntimeArtifacts/${{ github.event.inputs.artifactId }}/deploy" \
             -H "Authorization: Bearer ${{ steps.token.outputs.token }}"
 
-      # STEP 9: Summary
+      # STEP 8: Summary
       - name: Deployment Summary
         run: |
           echo "======================================"
