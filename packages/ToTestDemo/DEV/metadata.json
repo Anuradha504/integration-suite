@@ -1,8 +1,8 @@
 {
     "artifactId": "DEV",
     "packageId": "ToTestDemo",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "triggeredBy": "Anuradha",
-    "timestamp": "2026-05-08T06:53:25Z",
+    "timestamp": "2026-05-08T06:55:17Z",
     "target": "QA"
 }
