@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ifl="http:///com.sap.ifl.model/Ifl.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1">
     <bpmn2:collaboration id="Collaboration_1" name="Default Collaboration">
-        <bpmn2:documentation id="Documentation_1778499629927" textFormat="text/plain">Dummy Changse.</bpmn2:documentation>
+        <bpmn2:documentation id="Documentation_1778501513375" textFormat="text/plain">Dummy Changse.</bpmn2:documentation>
         <bpmn2:extensionElements>
             <ifl:property>
                 <key>namespaceMapping</key>
@@ -1722,40 +1722,6 @@
             <bpmn2:incoming>SequenceFlow_671</bpmn2:incoming>
             <bpmn2:outgoing>SequenceFlow_676</bpmn2:outgoing>
         </bpmn2:callActivity>
-        <bpmn2:callActivity id="CallActivity_524" name="GS_EXTRACT_VERSION">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>scriptFunction</key>
-                    <value/>
-                </ifl:property>
-                <ifl:property>
-                    <key>scriptBundleId</key>
-                    <value/>
-                </ifl:property>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.1</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>activityType</key>
-                    <value>Script</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::GroovyScript/version::1.1.2</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>subActivityType</key>
-                    <value>GroovyScript</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>script</key>
-                    <value>script2.groovy</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
-            <bpmn2:outgoing>SequenceFlow_525</bpmn2:outgoing>
-        </bpmn2:callActivity>
         <bpmn2:callActivity id="CallActivity_568" name="GS_CREATE _METADATA">
             <bpmn2:extensionElements>
                 <ifl:property>
@@ -1789,6 +1755,40 @@
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_569</bpmn2:incoming>
             <bpmn2:outgoing>SequenceFlow_571</bpmn2:outgoing>
+        </bpmn2:callActivity>
+        <bpmn2:callActivity id="CallActivity_524" name="GS_EXTRACT_VERSION">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>scriptFunction</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>scriptBundleId</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.1</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>activityType</key>
+                    <value>Script</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::GroovyScript/version::1.1.2</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>subActivityType</key>
+                    <value>GroovyScript</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>script</key>
+                    <value>script2.groovy</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_525</bpmn2:outgoing>
         </bpmn2:callActivity>
         <bpmn2:callActivity id="CallActivity_570" name="GS_ENCODE_METADATA">
             <bpmn2:extensionElements>
@@ -2698,8 +2698,8 @@
         </bpmn2:callActivity>
         <bpmn2:sequenceFlow id="SequenceFlow_678" sourceRef="CallActivity_677" targetRef="ServiceTask_615"/>
         <bpmn2:sequenceFlow id="SequenceFlow_676" sourceRef="CallActivity_673" targetRef="CallActivity_677"/>
-        <bpmn2:sequenceFlow id="SequenceFlow_525" sourceRef="CallActivity_524" targetRef="ServiceTask_527"/>
         <bpmn2:sequenceFlow id="SequenceFlow_571" sourceRef="CallActivity_568" targetRef="CallActivity_570"/>
+        <bpmn2:sequenceFlow id="SequenceFlow_525" sourceRef="CallActivity_524" targetRef="ServiceTask_527"/>
         <bpmn2:sequenceFlow id="SequenceFlow_573" sourceRef="CallActivity_570" targetRef="ServiceTask_572"/>
         <bpmn2:sequenceFlow id="SequenceFlow_539" sourceRef="CallActivity_538" targetRef="ServiceTask_541"/>
         <bpmn2:sequenceFlow id="SequenceFlow_579" sourceRef="CallActivity_576" targetRef="ExclusiveGateway_578"/>
@@ -2754,7 +2754,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_554_1778499629933" xsi:type="bpmn2:tFormalExpression">${property.sha_zip} != null and ${property.sha_zip} != ''</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_554_1778501513384" xsi:type="bpmn2:tFormalExpression">${property.sha_zip} != null and ${property.sha_zip} != ''</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_624" name="Route 1" sourceRef="ExclusiveGateway_623" targetRef="CallActivity_626">
             <bpmn2:extensionElements>
@@ -2787,7 +2787,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_630_1778499629933" xsi:type="bpmn2:tFormalExpression">${property.sha} != null</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_630_1778501513384" xsi:type="bpmn2:tFormalExpression">${property.sha} != null</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_581" name="Route 1" sourceRef="ExclusiveGateway_578" targetRef="CallActivity_580">
             <bpmn2:extensionElements>
@@ -2820,7 +2820,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_584_1778499629933" xsi:type="bpmn2:tFormalExpression">${property.metadataExists} = 'true'</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_584_1778501513385" xsi:type="bpmn2:tFormalExpression">${property.metadataExists} = 'true'</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_536" name="Branch 1" sourceRef="ParallelGateway_535" targetRef="CallActivity_538"/>
         <bpmn2:sequenceFlow id="SequenceFlow_593" name="Branch 2" sourceRef="ParallelGateway_535" targetRef="CallActivity_592"/>
@@ -2917,11 +2917,11 @@
             <bpmndi:BPMNShape bpmnElement="ExclusiveGateway_623" id="BPMNShape_ExclusiveGateway_623">
                 <dc:Bounds height="40.0" width="40.0" x="944.0" y="83.0"/>
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape bpmnElement="CallActivity_568" id="BPMNShape_CallActivity_568">
-                <dc:Bounds height="60.0" width="100.0" x="754.0" y="233.0"/>
-            </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="CallActivity_524" id="BPMNShape_CallActivity_524">
                 <dc:Bounds height="60.0" width="100.0" x="-786.0" y="73.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="CallActivity_568" id="BPMNShape_CallActivity_568">
+                <dc:Bounds height="60.0" width="100.0" x="754.0" y="233.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="CallActivity_667" id="BPMNShape_CallActivity_667">
                 <dc:Bounds height="60.0" width="100.0" x="-46.0" y="73.0"/>
