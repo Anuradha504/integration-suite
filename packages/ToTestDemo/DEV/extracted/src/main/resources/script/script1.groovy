@@ -3,13 +3,20 @@ import groovy.json.JsonSlurper
 
 def Message processData(Message message) {
 
-    def body = new JsonSlurper().parse(message.getBody(java.io.Reader))
+    def body = new JsonSlurper().parse(
+        message.getBody(java.io.Reader)
+    )
 
-    def artifact = body.artifacts[0]
+    message.setProperty(
+        "artifacts",
+        body.artifacts
+    )
 
-    message.setProperty("packageId", artifact.packageId)
-    message.setProperty("artifactId", artifact.artifactId)
-    message.setProperty("triggeredBy", body.triggeredBy)
+    // initialize counter
+    message.setProperty(
+        "loopIndex",
+        0
+    )
 
     return message
 }
