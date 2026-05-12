@@ -1,8 +1,0 @@
-{
-    "artifactId": "DEV",
-    "packageId": "ToTestDemo",
-    "version": "1.0.15",
-    "triggeredBy": null,
-    "timestamp": "2026-05-11T13:48:13Z",
-    "target": "QA"
-}
