@@ -1,8 +1,14 @@
 {
-    "artifactId": "NewCPI",
-    "packageId": "Test",
-    "version": null,
-    "triggeredBy": null,
-    "timestamp": "2026-05-14T11:47:22Z",
-    "target": "QA"
+	"artifactId": "NewCPI",
+	"artifactName": "NewCPI",
+"artifactVersion":"1.0.2",
+	"packageId": "Test",
+	"packageName": "Test",
+	"packageVersion": "",
+	"packageDescription": "<p></p>",
+	"packageShortText": "for test",
+	"packageVendor": "",
+	"triggeredBy": "",
+	"timestamp": "Thu, 14 May 2026 12:34:59 GMT",
+	"target": "QA"
 }
