@@ -1,0 +1,14 @@
+{
+	"artifactId": "IF_NewIFlowTestRakeshVerma",
+	"artifactName": "IF_NewIFlowTestRakeshVerma",
+"artifactVersion":"1.0.0",
+	"packageId": "Test",
+	"packageName": "Test",
+	"packageVersion": "",
+	"packageDescription": "<p></p>",
+	"packageShortText": "for test",
+	"packageVendor": "",
+	"triggeredBy": "",
+	"timestamp": "Thu, 14 May 2026 12:42:28 GMT",
+	"target": "QA"
+}
