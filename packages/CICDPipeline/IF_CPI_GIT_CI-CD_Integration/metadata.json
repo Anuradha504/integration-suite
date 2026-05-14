@@ -1,8 +1,8 @@
 {
     "artifactId": "IF_CPI_GIT_CI-CD_Integration",
     "packageId": "CICDPipeline",
-    "version": "1.0.17",
+    "version": null,
     "triggeredBy": null,
-    "timestamp": "2026-05-14T11:15:34Z",
+    "timestamp": "2026-05-14T11:47:29Z",
     "target": "QA"
 }
