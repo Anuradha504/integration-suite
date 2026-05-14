@@ -1,0 +1,8 @@
+{
+    "artifactId": "NewCPI",
+    "packageId": "Test",
+    "version": "1.0.1",
+    "triggeredBy": null,
+    "timestamp": "2026-05-14T06:52:10Z",
+    "target": "QA"
+}
