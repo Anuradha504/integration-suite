@@ -1,0 +1,8 @@
+{
+    "artifactId": "IF_CredSecure_DeltaCredential_Update",
+    "packageId": "CredentialManagementFramework",
+    "version": "1.0.9",
+    "triggeredBy": null,
+    "timestamp": "2026-07-17T10:37:58Z",
+    "target": "QA"
+}
