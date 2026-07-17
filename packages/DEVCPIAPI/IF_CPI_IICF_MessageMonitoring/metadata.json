@@ -1,0 +1,8 @@
+{
+    "artifactId": "IF_CPI_IICF_MessageMonitoring",
+    "packageId": "DEVCPIAPI",
+    "version": "1.0.7",
+    "triggeredBy": null,
+    "timestamp": "2026-07-17T11:47:42Z",
+    "target": "QA"
+}
