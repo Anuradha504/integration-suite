@@ -1,8 +1,0 @@
-{
-    "artifactId": "IF_CPI_GIT_CI-CD_Integration",
-    "packageId": "CI-CD Pipeline",
-    "version": "1.0.17",
-    "triggeredBy": null,
-    "timestamp": "2026-05-14T09:48:02Z",
-    "target": "QA"
-}
