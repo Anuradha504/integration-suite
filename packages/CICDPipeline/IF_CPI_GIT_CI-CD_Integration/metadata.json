@@ -1,14 +1,8 @@
 {
-	"artifactId": "IF_CPI_GIT_CI-CD_Integration",
-	"artifactName": "IF_CPI_GIT_CI-CD_Integration",
-"artifactVersion":"1.0.17",
-	"packageId": "CICDPipeline",
-	"packageName": "CI-CD Pipeline",
-	"packageVersion": "1.0.0",
-	"packageDescription": "<p></p>",
-	"packageShortText": "CPI_GIT Based Transport Framework",
-	"packageVendor": "",
-	"triggeredBy": "",
-	"timestamp": "Thu, 14 May 2026 14:42:06 GMT",
-	"target": "QA"
+    "artifactId": "IF_CPI_GIT_CI-CD_Integration",
+    "packageId": "CICDPipeline",
+    "version": "1.0.19",
+    "triggeredBy": null,
+    "timestamp": "2026-07-17T12:17:20Z",
+    "target": "QA"
 }
