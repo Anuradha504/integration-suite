@@ -1,8 +1,0 @@
-{
-    "artifactId": "Payment",
-    "packageId": "AlphaPackage",
-    "version": "1.0.1",
-    "triggeredBy": null,
-    "timestamp": "2026-05-12T08:19:21Z",
-    "target": "QA"
-}
