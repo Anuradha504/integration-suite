@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IF_CPI_GIT_CI-CD_Integration 
 Bundle-SymbolicName: IF_CPI_GIT_CI-CD_Integration
-Bundle-Version: 1.0.17
+Bundle-Version: 1.0.19
 SAP-BundleType: IntegrationFlow
 SAP-NodeType: IFLMAP
 SAP-RuntimeProfile: iflmap
@@ -28,8 +28,8 @@ Import-Package: com.sap.esb.application.services.cxf.interceptor,com.sap
  el.spi,com.sap.esb.webservice.audit.log,com.sap.esb.camel.endpoint.conf
  igurator.api,com.sap.esb.camel.jdbc.idempotency.reorg,javax.sql,org.apa
  che.camel.processor.idempotent.jdbc,org.osgi.service.blueprint
-Origin-Bundle-Name: IF_CPI_GIT_CI-CD_Integration
+Origin-Bundle-Name: IF_CPI_GIT_CI-CD_Integration 
 Origin-Bundle-SymbolicName: IF_CPI_GIT_CI-CD_Integration
-Origin-Bundle-Version: 1.0.11
-Origin-ModifiedDate: 1778224239841
+Origin-Bundle-Version: 1.0.18
+Origin-ModifiedDate: 1784007962257
 
