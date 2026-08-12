@@ -1,11 +1,12 @@
-#Sat Jul 18 04:53:39 UTC 2026
-API_Hostname=https\://220396ddtrial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com
-CPI-API-HostnameURL=https\://220396ddtrial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com/api/v1
+#
+#Wed Aug 12 08:37:35 UTC 2026
+API_Hostname=https\://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com
+CPI-API-HostnameURL=https\://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com/api/v1
 CPI_Credential=DEV_CPI_API
 CPI_Credentials=
 Credential=RV
 CustomerTimeZone=
-EndTiming=2026-05-13T00\:00\:00
+EndTiming=2026-08-13T00\:00\:00
 HostName=
 Hostname=https\://59efb77etrial.it-cpitrial03.cfapps.ap21.hana.ondemand.com
 IASF-Credentails=IASF-Credentails
@@ -14,5 +15,5 @@ IND_Auth=PB
 Interval=360
 LastRun_Variable=IASF_MMLastPoll
 Scheduler=<row><cell>dateType</cell><cell></cell></row><row><cell>timeType</cell><cell></cell></row><row><cell>dayValue</cell><cell></cell></row><row><cell>monthValue</cell><cell></cell></row><row><cell>yearValue</cell><cell></cell></row><row><cell>onWeekly</cell><cell></cell></row><row><cell>onMonthly</cell><cell></cell></row><row><cell>OnEveryMinute</cell><cell></cell></row><row><cell>fromInterval</cell><cell></cell></row><row><cell>toInterval</cell><cell></cell></row><row><cell>timeZone</cell><cell>( UTC 0\:00 ) Greenwich Mean Time(Etc/GMT)</cell></row><row><cell>secondValue</cell><cell>0</cell></row><row><cell>minutesValue</cell><cell></cell></row><row><cell>hourValue</cell><cell></cell></row><row><cell>triggerType</cell><cell>simple</cell></row><row><cell>noOfSchedules</cell><cell>1</cell></row><row><cell>schedule1</cell><cell>fireNow\=true</cell></row>
-StartTime=2026-05-10T00\:00\:00
+StartTime=2026-07-10T00\:00\:00
 TimeZone=America/New_York
