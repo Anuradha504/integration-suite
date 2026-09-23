@@ -14,4 +14,28 @@
     <constraint/>
     <description/>
     <additionalMetadata/>
-  </parameter><param_references><reference attribute_category="Receiver8" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.2/attrId::httpAddressWithoutQuery" attribute_uilabel="Address" param_key="API_Hostname"/><reference attribute_category="Receiver8" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.2/attrId::httpAddressWithoutQuery" attribute_uilabel="Address" param_key="API_Hostname"/></param_references></parameters>
+  </parameter><parameter>
+    <key/>
+    <name>https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com</name>
+    <type>xsd:string</type>
+    <isRequired>false</isRequired>
+    <constraint/>
+    <description>API Runtime Host</description>
+    <additionalMetadata/>
+  </parameter><parameter>
+    <key/>
+    <name>GIT_CRED</name>
+    <type>xsd:string</type>
+    <isRequired>false</isRequired>
+    <constraint/>
+    <description>Git_Token</description>
+    <additionalMetadata/>
+  </parameter><parameter>
+    <key/>
+    <name>CI_CD_Pipeline</name>
+    <type>xsd:string</type>
+    <isRequired>false</isRequired>
+    <constraint/>
+    <description>API_OAuth_Credential</description>
+    <additionalMetadata/>
+  </parameter><param_references><reference attribute_category="Receiver5.Receiver.Auth" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::credentialName" attribute_uilabel="Credential Name" param_key="GIT_CRED"/><reference attribute_category="Receiver.Receiver.Auth" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::credentialName" attribute_uilabel="Credential Name" param_key="GIT_CRED"/><reference attribute_category="Receiver6.Receiver.Auth" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::credentialName" attribute_uilabel="Credential Name" param_key="GIT_CRED"/><reference attribute_category="Receiver2" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::httpAddressWithoutQuery" attribute_uilabel="Address" param_key="https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com"/><reference attribute_category="Receiver4.Receiver.Auth" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::credentialName" attribute_uilabel="Credential Name" param_key="GIT_CRED"/><reference attribute_category="Receiver3.Receiver.Auth" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::credentialName" attribute_uilabel="Credential Name" param_key="GIT_CRED"/><reference attribute_category="Receiver8" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::httpAddressWithoutQuery" attribute_uilabel="Address" param_key="API_Hostname"/><reference attribute_category="Receiver1.Receiver.Auth" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::credentialName" attribute_uilabel="Credential Name" param_key="CI_CD_Pipeline"/><reference attribute_category="Receiver1" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::httpAddressWithoutQuery" attribute_uilabel="Address" param_key="https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com"/><reference attribute_category="Receiver8" attribute_id="ctype::AdapterVariant/cname::HTTP/tp::HTTP/mp::None/direction::Receiver/version::1.17.3/attrId::httpAddressWithoutQuery" attribute_uilabel="Address" param_key="API_Hostname"/></param_references></parameters>
