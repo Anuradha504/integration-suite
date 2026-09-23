@@ -1,4 +1,7 @@
 #
-#Wed Aug 12 08:37:10 UTC 2026
+#Wed Sep 23 07:03:35 UTC 2026
 API-Hostname=
-API_Hostname=https\://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com
+API_Hostname=https\://16f60402trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com
+CI_CD_Pipeline=CI_CD_Pipeline
+GIT_CRED=GIT_CRED
+https\://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com=https\://16f60402trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com
