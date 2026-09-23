@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:ifl="http:///com.sap.ifl.model/Ifl.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1">
     <bpmn2:collaboration id="Collaboration_1" name="Default Collaboration">
-        <bpmn2:documentation id="Documentation_1784290587261" textFormat="text/plain">Dummy Changse.</bpmn2:documentation>
+        <bpmn2:documentation id="Documentation_1790146636201" textFormat="text/plain">Dummy Changse.</bpmn2:documentation>
         <bpmn2:extensionElements>
             <ifl:property>
                 <key>namespaceMapping</key>
@@ -309,7 +309,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value>GIT_CRED</value>
+                    <value>{{GIT_CRED}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpErrorResponseCodes</key>
@@ -485,7 +485,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value>GIT_CRED</value>
+                    <value>{{GIT_CRED}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpErrorResponseCodes</key>
@@ -661,7 +661,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value>GIT_CRED</value>
+                    <value>{{GIT_CRED}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpErrorResponseCodes</key>
@@ -849,7 +849,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>httpAddressWithoutQuery</key>
-                    <value>https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationDesigntimeArtifacts(Id='${property.artifactId}',Version='${property.version}')/$value</value>
+                    <value>{{https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com}}/api/v1/IntegrationDesigntimeArtifacts(Id='${property.artifactId}',Version='${property.version}')/$value</value>
                 </ifl:property>
                 <ifl:property>
                     <key>providerRelativeUrl</key>
@@ -1013,7 +1013,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value>GIT_CRED</value>
+                    <value>{{GIT_CRED}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpErrorResponseCodes</key>
@@ -1273,7 +1273,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value>GIT_CRED</value>
+                    <value>{{GIT_CRED}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpErrorResponseCodes</key>
@@ -1625,7 +1625,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>credentialName</key>
-                    <value>CI_CD_Pipeline</value>
+                    <value>{{CI_CD_Pipeline}}</value>
                 </ifl:property>
                 <ifl:property>
                     <key>httpErrorResponseCodes</key>
@@ -1637,7 +1637,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>httpAddressWithoutQuery</key>
-                    <value>https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com/api/v1/IntegrationRuntimeArtifacts('${property.artifactId}')</value>
+                    <value>{{https://73e07ef2trial.it-cpitrial05.cfapps.us10-001.hana.ondemand.com}}/api/v1/IntegrationRuntimeArtifacts('${property.artifactId}')</value>
                 </ifl:property>
                 <ifl:property>
                     <key>providerRelativeUrl</key>
@@ -3348,7 +3348,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_554_1784290587269" xsi:type="bpmn2:tFormalExpression">${property.sha_zip} != null and ${property.sha_zip} != ''</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_554_1790146636212" xsi:type="bpmn2:tFormalExpression">${property.sha_zip} != null and ${property.sha_zip} != ''</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_581" name="Route 1" sourceRef="ExclusiveGateway_578" targetRef="CallActivity_580">
             <bpmn2:extensionElements>
@@ -3381,7 +3381,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_584_1784290587270" xsi:type="bpmn2:tFormalExpression">${property.metadataExists} = 'true'</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_584_1790146636213" xsi:type="bpmn2:tFormalExpression">${property.metadataExists} = 'true'</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_624" name="Route 1" sourceRef="ExclusiveGateway_623" targetRef="CallActivity_626">
             <bpmn2:extensionElements>
@@ -3414,7 +3414,7 @@
                     <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_630_1784290587270" xsi:type="bpmn2:tFormalExpression">${property.sha} != null</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_630_1790146636213" xsi:type="bpmn2:tFormalExpression">${property.sha} != null</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_536" name="Branch 1" sourceRef="ParallelGateway_535" targetRef="CallActivity_538"/>
         <bpmn2:sequenceFlow id="SequenceFlow_593" name="Branch 2" sourceRef="ParallelGateway_535" targetRef="CallActivity_592"/>
