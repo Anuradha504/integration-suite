@@ -1,0 +1,8 @@
+{
+    "artifactId": "QA_AUTO_DEPLOY",
+    "packageId": "QAPackage",
+    "version": "1.0.18",
+    "triggeredBy": null,
+    "timestamp": "2026-09-23T07:31:03Z",
+    "target": "QA"
+}
