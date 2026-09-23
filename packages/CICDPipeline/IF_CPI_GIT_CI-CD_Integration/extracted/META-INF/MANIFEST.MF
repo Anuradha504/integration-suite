@@ -30,6 +30,6 @@ Import-Package: com.sap.esb.application.services.cxf.interceptor,com.sap
  che.camel.processor.idempotent.jdbc,org.osgi.service.blueprint
 Origin-Bundle-Name: IF_CPI_GIT_CI-CD_Integration 
 Origin-Bundle-SymbolicName: IF_CPI_GIT_CI-CD_Integration
-Origin-Bundle-Version: 1.0.18
-Origin-ModifiedDate: 1784007962257
+Origin-Bundle-Version: 1.0.19
+Origin-ModifiedDate: 1784290595892
 
